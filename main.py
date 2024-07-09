@@ -8,4 +8,4 @@ filter_list= [
     'Дягилев',
 ]
 for i in events.get_event(filter_list):
-    print(i[1])
+    print(i['date'])
