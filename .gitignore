@@ -3,3 +3,5 @@
 *.cred
 *.key
 /secerts/*
+testfile.py
+/__pycache__/*
