@@ -1,0 +1,5 @@
+# Secret files
+*.json
+*.cred
+*.key
+/secerts/*
