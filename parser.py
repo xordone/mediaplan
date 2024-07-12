@@ -1,6 +1,13 @@
 import datetime
+import pytz
 from spreadsheet import Spreadsheet
 class Parser:
+    filter_by_name = [
+        'Я.М. Котова',
+        'Е.М. Мандрина',
+        'А.В. Старцов',
+        'Ю.Д. Козлова',
+    ]
 # struct:
 #[0] '№ п/п'
 #[1] 'Внесено в ЦЭК',
@@ -16,27 +23,111 @@ class Parser:
 #[11] 'Возрастной ценз',
 #[12] 'Краткое описание мероприятия',
 #[13] 'Ссылка на мероприятие'
-    def __init__(self):
-        self.sheet = Spreadsheet()
+    def __init__(self, month):
+        month_dict = {
+            '01' : 'январь',
+            '02' : 'февраль',
+            '03' : 'март',
+            '04' : 'апрель',
+            '05' : 'май',
+            '06' : 'июнь',
+            '07' : 'июль',
+            '08' : 'август',
+            '09' : 'сентябрь',
+            '10' : 'октябрь',
+            '11' : 'ноябрь',
+            '12' : 'декабрь',
+        }
+        page = 'План ' + month_dict[month] + ' 2024 новый'
+        self.sheet = Spreadsheet(page_name=page)
         self.all_values = self.sheet.get_all()
     
-    def get_event(self, location='Концертный зал', 
+    # def get_event_from_filter(self, location='Концертный зал', 
+    #             description_flag=False,
+    #             link_flag=False,
+    #             type_flag=False):
+    #     ret = []
+    #     for i in self.all_values:
+    #         if i[7] in location:
+    #             res =({'date'      : i[2],
+    #                 'time'      : i[4],
+    #                 'name'      : i[5],
+    #                 'location'  : i[7],
+    #                 'format'    : i[8]})
+    #             if type_flag:
+    #                 res['type'] = i[10]
+    #             if description_flag:
+    #                 res['description'] = i[12]
+    #             if link_flag:
+    #                 res['link'] = i[13]
+    #             ret.append(res)
+    #     return ret
+#     event = {
+#   'summary': 'Google I/O 2015',
+#   'location': '800 Howard St., San Francisco, CA 94103',
+#   'description': 'A chance to hear more about Google\'s developer products.',
+#   'start': {
+#     'dateTime': '2015-05-28T09:00:00-07:00',
+#     'timeZone': 'America/Los_Angeles',
+#   },
+#   'end': {
+#     'dateTime': '2015-05-28T17:00:00-07:00',
+#     'timeZone': 'America/Los_Angeles',
+#   },
+#   'recurrence': [
+#     'RRULE:FREQ=DAILY;COUNT=2'
+#   ],
+#   'attendees': [
+#     {'email': 'lpage@example.com'},
+#     {'email': 'sbrin@example.com'},
+#   ],
+#   'reminders': {
+#     'useDefault': False,
+#     'overrides': [
+#       {'method': 'email', 'minutes': 24 * 60},
+#       {'method': 'popup', 'minutes': 10},
+#     ],
+#   },
+# }
+
+    def dater(self, date, time):
+        start = '{0} {1}'.format(date, time[:5])
+        end = '{0} {1}'.format(date, time[-5:])
+        time_zone = pytz.timezone("Europe/Moscow")
+        date_start = time_zone.localize(datetime.datetime.strptime(start, "%d.%m.%Y %H:%M"))
+        date_end = time_zone.localize(datetime.datetime.strptime(end, "%d.%m.%Y %H:%M"))
+        
+        return {'start': date_start, 'end': date_end}
+
+    def get_event_from_filter(self, location='Концертный зал', 
                 description_flag=False,
                 link_flag=False,
                 type_flag=False):
+
         ret = []
         for i in self.all_values:
-            if i[7] in location:
-                res =({'date'      : i[2],
-                    'time'      : i[4],
-                    'name'      : i[5],
+            if i[7] in location and i[6] in self.filter_by_name:
+                if len(i[2]) > 10:
+                    continue
+                res =({
+                    #'date'      : i[2],
+                    #'time'      : i[4],
+                    'summary'      : i[5],
                     'location'  : i[7],
-                    'format'    : i[8]})
+                    #'format'    : i[8]
+                    })
                 if type_flag:
                     res['type'] = i[10]
                 if description_flag:
                     res['description'] = i[12]
                 if link_flag:
                     res['link'] = i[13]
+                event_date = self.dater(i[2], i[4])
+                res['start'] = {
+                    'dateTime': event_date['start'].isoformat(),
+                }
+                res['end'] = {
+                    'dateTime': event_date['end'].isoformat(),
+                }
                 ret.append(res)
         return ret
