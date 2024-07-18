@@ -16,4 +16,5 @@ jobs:
               run: pip install -r requirements.txt 
             - name: create file
               run: echo $SECRET > .env
+            - name: ls
               run: ls -la .env
