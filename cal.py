@@ -1,6 +1,6 @@
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-import env2json
+
 class Calendar:
     SCOPES = ["https://www.googleapis.com/auth/calendar"]
     FILE_PATH = './secrets/cred.json'
