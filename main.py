@@ -17,4 +17,3 @@ for i in func.list:
     for i in events.get_event_from_filter(filter_list, description_flag=True):
         cal.insert_event(i)
 
-        
