@@ -17,4 +17,4 @@ jobs:
             - name: create file
               run: echo $SECRET > .env
             - name: ls
-              run: ls -la .env
+              run: ls -la 
