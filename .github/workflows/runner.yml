@@ -18,5 +18,5 @@ jobs:
               run: mkdir -p .secret
             - name: create tmp file
               run: echo $SECRET > .secret/cred.json
-            - name: ls
-              run: ls -la 
+            - name: run app
+              run: python main.py
