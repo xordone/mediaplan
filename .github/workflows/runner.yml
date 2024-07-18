@@ -15,8 +15,12 @@ jobs:
             - name: Install Dependencies
               run: pip install -r requirements.txt 
             - name: create tmp dir
-              run: mkdir -p .secrets
+              run: mkdir -p secrets
             - name: create tmp file
-              run: echo $SECRET > .secrets/cred.json
+              run: echo $SECRET > secrets/cred.json
             - name: run app
               run: python main.py
+            - name: ls
+              run: ls -la
+            - name: rm
+              run: rm -rf secrets
