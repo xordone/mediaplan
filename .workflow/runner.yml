@@ -1,0 +1,18 @@
+name: daily-run
+
+on: 
+    push:
+
+env:
+    SECRET: ${{ secrets.SECRET }}
+
+jobs:
+    Daily-Run:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+            - name: Install Dependencies
+              run: pip install -r requirements.txt 
+            - name: create file
+              run: echo $SECRET > .env
