@@ -2,7 +2,7 @@ name: daily-run
 
 on: 
     schedule:
-      - cron: "* * * * *"
+      - cron: '* * * * *'
 
 env:
     SECRET: ${{ secrets.SECRET }}
