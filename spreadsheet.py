@@ -2,7 +2,7 @@ import gspread
 
 
 class Spreadsheet:
-    def __init__(self, sheet_name='Медиаплан КЦК', page_name='План июль 2024 новый'):
+    def __init__(self, page_name='План июль 2024 новый'):
         gc = gspread.service_account(filename='./secrets/cred.json')
 #        self.sheet = gc.open(sheet_name).worksheet(page_name)
         sheeturl = 'https://docs.google.com/spreadsheets/d/1mtHQcGAS9mQW_l2EY5j0Iu38kUvkrSUUGGGIEPzl_Zc/edit?gid=1203960731#gid=1203960731'
