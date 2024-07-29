@@ -38,7 +38,7 @@ class Parser:
             '11' : 'ноябрь',
             '12' : 'декабрь',
         }
-        page = 'План ' + month_dict[month] + ' 2024 новый'
+        page = 'План ' + month_dict[month] + ' 2024'
         self.sheet = Spreadsheet(page_name=page)
         self.all_values = self.sheet.get_all()
     

@@ -4,5 +4,6 @@
 *.key
 /secerts/*
 testfile.py
+test.py
 /__pycache__/*
 .env
