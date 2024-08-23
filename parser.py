@@ -1,12 +1,17 @@
 import datetime
 import pytz
 from spreadsheet import Spreadsheet
+from cal import Calendar
+
 class Parser:
     filter_by_name = [
         'Я.М. Котова',
         'Е.М. Мандрина',
         'А.В. Старцов',
         'Ю.Д. Козлова',
+    ]
+    filter_by_type = [
+        'концертная программа',
     ]
 # struct:
 #[0] '№ п/п'
@@ -131,3 +136,4 @@ class Parser:
                 }
                 ret.append(res)
         return ret
+    

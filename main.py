@@ -3,9 +3,8 @@ import cal
 import func
 
 cal = cal.Calendar()
-# удаляем всё события
-cal.delete_all_events()
-
+# cal.event_delete_all()
+events_from_cal = cal.event_list_month().get('items')
 for i in func.list:
     events = Parser(i)  
 
@@ -15,5 +14,14 @@ for i in func.list:
         'Площадь КЦ',
     ]
     for i in events.get_event_from_filter(filter_list, description_flag=True):
-        cal.insert_event(i)
+        for j in events_from_cal:
+            if i['summary'] == j['summary'] and i['start']['dateTime'] == j['start']['dateTime']:
+                cal.event_update(j['id'], i)
+                break
+        else:
+            cal.event_insert(i)
+        
+            
+        
+        # cal.event_insert(i)
 
