@@ -12,6 +12,7 @@ for i in func.list:
         'Концертный зал',
         'Дягилев',
         'Площадь КЦ',
+        'Милонга',
     ]
     for i in events.get_event_from_filter(filter_list, description_flag=True):
         for j in events_from_cal:
