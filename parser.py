@@ -97,9 +97,14 @@ class Parser:
 # }
 
     def dater(self, date, time):
+        if time[-1] == '\n':
+            time = time[:-1]
+        if len(time) > 16:
+            time = '00:00 - 00:00'
         start = '{0} {1}'.format(date, time[:5])
         end = '{0} {1}'.format(date, time[-5:])
         time_zone = pytz.timezone("Europe/Moscow")
+        print(time)
         date_start = time_zone.localize(datetime.datetime.strptime(start, "%d.%m.%Y %H:%M"))
         date_end = time_zone.localize(datetime.datetime.strptime(end, "%d.%m.%Y %H:%M"))
         
@@ -128,7 +133,12 @@ class Parser:
                     res['description'] = i[12]
                 if link_flag:
                     res['link'] = i[13]
-                event_date = self.dater(i[2], i[4])
+                print(i)
+                if len(i[4]) < 1:
+                    event_date = self.dater(i[2], '00:00-00:00')
+                else:
+                    event_date = self.dater(i[2], i[4])
+
                 res['start'] = {
                     'dateTime': event_date['start'].isoformat(),
                 }
