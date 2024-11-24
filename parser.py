@@ -104,7 +104,6 @@ class Parser:
         start = '{0} {1}'.format(date, time[:5])
         end = '{0} {1}'.format(date, time[-5:])
         time_zone = pytz.timezone("Europe/Moscow")
-        print(time)
         date_start = time_zone.localize(datetime.datetime.strptime(start, "%d.%m.%Y %H:%M"))
         date_end = time_zone.localize(datetime.datetime.strptime(end, "%d.%m.%Y %H:%M"))
         
@@ -133,7 +132,6 @@ class Parser:
                     res['description'] = i[12]
                 if link_flag:
                     res['link'] = i[13]
-                print(i)
                 if len(i[4]) < 1:
                     event_date = self.dater(i[2], '00:00-00:00')
                 else:

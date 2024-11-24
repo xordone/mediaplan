@@ -16,6 +16,8 @@ for i in func.list:
     ]
     for i in events.get_event_from_filter(filter_list, description_flag=True):
         for j in events_from_cal:
+            if 'summary' not in j:
+                break
             if i['summary'] == j['summary'] and i['start']['dateTime'] == j['start']['dateTime']:
                 cal.event_update(j['id'], i)
                 break
