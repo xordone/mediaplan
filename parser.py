@@ -44,7 +44,10 @@ class Parser:
             '11' : 'ноябрь',
             '12' : 'декабрь',
         }
-        page = 'План ' + month_dict[month] + ' 2024'
+        if int(month) < 12:
+            page = 'План ' + month_dict[month] + ' 2025'
+        else:
+            page = 'План ' + month_dict[month] + ' 2024'
         self.sheet = Spreadsheet(page_name=page)
         self.all_values = self.sheet.get_all()
     
