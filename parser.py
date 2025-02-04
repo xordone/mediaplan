@@ -104,6 +104,8 @@ class Parser:
             time = time[:-1]
         if len(time) > 16:
             time = '00:00 - 00:00'
+        else:
+            time = '00:00 - 00:00'
         start = '{0} {1}'.format(date, time[:5])
         end = '{0} {1}'.format(date, time[-5:])
         time_zone = pytz.timezone("Europe/Moscow")
