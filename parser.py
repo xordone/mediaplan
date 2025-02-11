@@ -102,10 +102,11 @@ class Parser:
     def dater(self, date, time):
         if time[-1] == '\n':
             time = time[:-1]
+        if time[1].isdigit() == False:
+            time = '00:00 - 00:00'
         if len(time) > 16:
             time = '00:00 - 00:00'
-        else:
-            time = '00:00 - 00:00'
+
         start = '{0} {1}'.format(date, time[:5])
         end = '{0} {1}'.format(date, time[-5:])
         time_zone = pytz.timezone("Europe/Moscow")
