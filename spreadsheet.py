@@ -6,8 +6,8 @@ class Spreadsheet:
         gc = gspread.service_account(filename='./secrets/cred.json')
 #        self.sheet = gc.open(sheet_name).worksheet(page_name)
 #        sheeturl = 'https://docs.google.com/spreadsheets/d/1mtHQcGAS9mQW_l2EY5j0Iu38kUvkrSUUGGGIEPzl_Zc/edit?gid=1203960731#gid=1203960731'
-        sheeturl = 'https://docs.google.com/spreadsheets/d/1dmHYL0z5P8ky0n4oS_s365LbELy-Y4qRvkR4WeaoHWA/edit?gid=1285510395#gid=1285510395'
-        
+#        sheeturl = 'https://docs.google.com/spreadsheets/d/1dmHYL0z5P8ky0n4oS_s365LbELy-Y4qRvkR4WeaoHWA/edit?gid=1285510395#gid=1285510395'
+        sheeturl = 'https://docs.google.com/spreadsheets/d/1NQpUKi0_KHuatumhOtfgblNDm1tz7WruQzgk8RQ6wBk/edit?gid=1998777659#gid=1998777659'        
         self.sheet = gc.open_by_url(sheeturl).worksheet(page_name)
 
     def get_all(self):
