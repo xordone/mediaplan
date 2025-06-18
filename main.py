@@ -25,6 +25,5 @@ for i in func.list:
             cal.event_insert(i)
         
             
-        
         # cal.event_insert(i)
 
